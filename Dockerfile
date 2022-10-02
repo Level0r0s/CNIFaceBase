@@ -6,7 +6,7 @@ ENV TZ=Asia/Shanghai
 RUN apt update
 RUN apt install -y libopencv-dev
 
-RUN apt install -y wget git build-essential autoconf libtool pkg-config libgflags-dev
+RUN apt install -y wget git build-essential autoconf libtool pkg-config libgflags-dev libssl-dev openssl
 
 RUN cd / && git clone --recursive -b v3.24.2 https://github.com/Kitware/CMake.git CMake
 RUN cd CMake \
