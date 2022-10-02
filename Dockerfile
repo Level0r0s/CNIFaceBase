@@ -6,7 +6,15 @@ ENV TZ=Asia/Shanghai
 RUN apt update
 RUN apt install -y libopencv-dev
 
-RUN apt install -y wget cmake git build-essential autoconf libtool pkg-config libgflags-dev
+RUN apt install -y wget git build-essential autoconf libtool pkg-config libgflags-dev
+
+RUN cd / && git clone --recursive -b v3.24.2 https://github.com/Kitware/CMake.git CMake
+RUN cd CMake \
+    && ./bootstrap \
+    && make -j $(nproc) \
+    && make install
+
+RUN cd / && rm -rf /CMake
 
 RUN cd / && git clone --recurse-submodules -b v1.47.0 --depth 1 --shallow-submodules https://github.com/grpc/grpc 
 RUN cd grpc \
@@ -49,3 +57,11 @@ RUN cd /tvm/python \
 RUN cd / && rm -rf /tvm
 RUN pip3 install onnx
 RUN pip3 install mxnet
+
+RUN cd / && git clone --recursive -b v3.2.7 https://github.com/vearch/gamma.git gamma
+RUN cd gamma \
+    && mkdir -p build \
+    && cd build    \
+    && cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_WITH_SCANN=OFF .. \
+    && make -j $(nproc) \
+    && make install
