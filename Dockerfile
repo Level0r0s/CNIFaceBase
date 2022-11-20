@@ -18,7 +18,9 @@ RUN cd / && rm -rf /CMake
 
 
 RUN apt install unzip libzstd-dev libopenblas-dev liblapack-dev -y
-RUN wget https://github.com/coconut-island/CNIFaceResource/raw/main/third_party/gamma-87e90349e385e5392089b5f5ed88861d55558781.zip -O /gamma-87e90349e385e5392089b5f5ed88861d55558781.zip && unzip ./gamma-87e90349e385e5392089b5f5ed88861d55558781.zip && rm -rf ./gamma-87e90349e385e5392089b5f5ed88861d55558781.zip && mv ./gamma-87e90349e385e5392089b5f5ed88861d55558781 ./gamma
+# RUN wget https://github.com/coconut-island/CNIFaceResource/raw/main/third_party/gamma-87e90349e385e5392089b5f5ed88861d55558781.zip -O /gamma-87e90349e385e5392089b5f5ed88861d55558781.zip && unzip ./gamma-87e90349e385e5392089b5f5ed88861d55558781.zip && rm -rf ./gamma-87e90349e385e5392089b5f5ed88861d55558781.zip && mv ./gamma-87e90349e385e5392089b5f5ed88861d55558781 ./gamma
+
+RUN wget https://github.com/coconut-island/CNIFaceResource/raw/main/third_party/gamma-87e90349e385e5392089b5f5ed88861d55558781_without_avx2.zip -O /gamma-87e90349e385e5392089b5f5ed88861d55558781.zip && unzip ./gamma-87e90349e385e5392089b5f5ed88861d55558781.zip && rm -rf ./gamma-87e90349e385e5392089b5f5ed88861d55558781.zip && mv ./gamma-87e90349e385e5392089b5f5ed88861d55558781 ./gamma
 
 RUN cd /gamma/third_party && bash build.sh && cd faiss && cp -r ./include/* /usr/local/include/ && cp ./lib/* /lib/x86_64-linux-gnu/
 
